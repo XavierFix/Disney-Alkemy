@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{master.html}">
+    <head>
+        <meta charset="utf-8">
+        <title th:inline="text">Peliculas</title>
+    </head>
+    <body>
+
+        <div layout:fragment="content">
+
+
+            <h4>Todos los personajes</h4>
+
+            <div>
+                <form class="form-inline" th:action="@{/personajes}">
+                    <div class="form-group mb-2">
+                        <label>Filtrar Personajes (Pulse Buscar sin haber escrito nada para mostrar todos los Personajes)</label>
+                    </div>                      
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="text" name="palabraClave" class="form-control" id="palabraClave" th:value="${palabraClave}" placeholder="Introduzca la busqueda"/>
+                    </div>
+                    <input type="submit" class="btn btn-info mb-2" value="Buscar">
+                    &nbsp; &nbsp;
+                </form>
+            </div>
+
+            <div class="row">
+                <div class="row">
+                    <div class="col-md-3 my-5" th:each="personaje : ${personajes}"
+                         th:object="${personaje}">
+                        <a th:href="@{/personajes/{id}(id=*{id})}" class="card shadow-lg"
+                           style="text-decoration: none;"> 
+                            <img
+                                th:src="@{/assets/{filename}(filename=*{rutaImagen})}"
+                                th:alt="*{nombre}" class="card-img-top">
+                            <div class="card-body">
+                                <h2 class="card-title fs-6" th:text="*{nombre}"></h2>
+                                <p th:text="*{historia}"
+                                   class="text-muted small"></p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </body>
+</html>

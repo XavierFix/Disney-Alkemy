@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{master.html}">
+    <head>
+        <meta charset="utf-8">
+        <title>[[${personaje.nombre}]]</title>
+    </head>
+    <body>
+
+        <div layout:fragment="content" th:object="${personaje}">
+            <div class="row">
+                <div class="col-md-3 my-5">
+                    <img th:src="@{/assets/{filename}(filename=*{rutaImagen})}"
+                         th:alt="*{nombre}" class="card-img-top">
+                </div>
+                <div class="col-md-6">
+                    <div class="text-end my-3">
+
+                    </div>
+                    <h2 th:text="*{nombre}"></h2>
+                    <div class="mb-3">
+                        <p th:text="*{historia}"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h4>Edad</h4><p th:text="*{edad}"></p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h4>Peso</h4><p th:text="*{peso} + KG"></p>
+                    </div>
+                    
+                    <div class="mb-1">
+                        <h2>Peliculas o Series</h2>
+                       <span class="badge rounded-pull bg-light text-dark me-1"
+                              th:each="pelicula : *{peliculas}" th:text="${pelicula.titulo}"></span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{master.html}">
+    <head>
+        <meta charset="utf-8">
+        <title>Administrar Personajes</title>
+    </head>
+    <body>
+
+        <div layout:fragment="content">
+            <h2>Personajes</h2>
+            <div class="text-end">
+                <a  href="/index-personajes/personajes/nuevo" class="btn btn-primary mb-3">
+                    Agregar Personaje </a>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Personaje</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="personaje : ${personajes}" th:object="${personaje}">
+                        <td style="width:150px;">
+                            <a th:href="@{/assets/{filename}(filename=*{rutaImagen})}" data-fancybox>
+                                <img th:src="@{/assets/{filename}(filename=*{rutaImagen})}" alt="" class="img-thumbnail w-100">
+                            </a>
+                        </td>
+                        <td>
+                            <div th:text="*{nombre}" class="fs-5 fw-bold"></div>
+                            <p th:text="*{historia}"></p>
+                            
+                        </td>
+                        <td class="text-end">
+                            <a  th:href="@{/index-personajes/personajes/{id}/editar(id=*{id})}">Editar</a>
+                            <a  href="javascript:void(0)" class="text-danger ms-3" th:onclick="'eliminarPersonaje(' + *{id} +')'">Eliminar</a>
+                            <form  th:id="'eliminarPersonajeForm' + *{id}" th:action="@{/index-personajes/personajes/{id}/eliminar(id=*{id})}" method="post" class="d-none">
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row mt-5" th:with="page=${peliculas}">
+                <div class="col-sm-6">
+                    <div sd:pagination-sumary>
+                    </div>
+                    <div class="col-sm-6">
+                        <nav>
+                            <ul class="pagination" sd:pagination="full"></ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <div layout:fragment="scripts">
+            <script>
+                function eliminarPersonaje(id) {
+                    if (!confirm('¿Estás seguro de eliminar este personaje?')) {
+                        return;
+                    }
+                    $('#eliminarPersonajeForm' + id).submit();
+                }
+            </script>
+        </div>
+
+    </body>
+</html>

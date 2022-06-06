@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{master.html}">
+    <head>
+        <meta charset="utf-8">
+        <title>Administrar Generos</title>
+    </head>
+    <body>
+
+        <div layout:fragment="content">
+            <h2>Generos</h2>
+            <div class="text-end">
+                <a  href="/index-generos/generos/nuevo" class="btn btn-primary mb-3">
+                    Agregar genero </a>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Genero</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="genero : ${generos}" th:object="${genero}">
+                        <td>
+                            <div th:text="*{titulo}" class="fs-5 fw-bold"></div>
+                        </td>
+                        <td class="text-end">
+                            <a  th:href="@{/index-generos/generos/{id}/editar(id=*{id})}">Editar</a>
+                            <a   href="javascript:void(0)" class="text-danger ms-3" th:onclick="'eliminarGenero(' + *{id} +')'">Eliminar</a>
+                            <form  th:id="'eliminarGeneroForm' + *{id}" th:action="@{/index-generos/generos/{id}/eliminar(id=*{id})}" method="post" class="d-none">
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row mt-5" th:with="page=${generos}">
+                <div class="col-sm-6">
+                    <div sd:pagination-sumary>
+                    </div>
+                    <div class="col-sm-6">
+                        <nav>
+                            <ul class="pagination" sd:pagination="full"></ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <div layout:fragment="scripts">
+            <script>
+                function eliminarGenero(id) {
+                    if (!confirm('¿Estás seguro de eliminar este genero?')) {
+                        return;
+                    }
+                    $('#eliminarGeneroForm' + id).submit();
+                }
+            </script>
+        </div>
+
+    </body>
+</html>

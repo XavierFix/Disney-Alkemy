@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+
+        <div layout:fragment="form">
+            <br>
+            <form action="" method="post" th:object="${personaje}"
+                  enctype="multipart/form-data">
+
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre : </label>
+                    <input type="text" id="nombre" placeholder="Digite el Nombre"
+                        class="form-control" th:field="*{nombre}">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}"
+                         th:errors="*{nombre}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="historia" class="form-label">Historia : </label>
+                    <textarea id="historia" placeholder="Digite la historia"
+                              class="form-control" th:field="*{historia}"></textarea>
+                    <div class="invalid-feedback"
+                         th:if="${#fields.hasErrors('historia')}" th:errors="*{historia}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="imagen" class="form-label">Imagen : </label> <input
+                        type="file" name="imagen" id="imagen" class="form-control"
+                        th:field="*{imagen}">
+                    <div class="invalid-feedback"
+                         th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="edad" class="form-label">Edad : </label> <input
+                        type="number" name="edad" id="edad" class="form-control"
+                        th:field="*{edad}">
+                    <div class="invalid-feedback"
+                         th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="peso" class="form-label">Peso (En Kg): </label> <input
+                        type="number" name="peso" id="peso" class="form-control"
+                        th:field="*{peso}">
+                    <div class="invalid-feedback"
+                         th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}"></div>
+                </div>
+
+                 <div class="mb-3">
+                    <label for="peliculas" class="form-label">Peliculas/Series : </label> <select
+                        id="peliculas" class="form-control" th:field="*{peliculas}" multiple>
+                        <option th:each="pelicula : ${peliculas}" th:value="${pelicula.id}"
+                                th:text="${pelicula.titulo}"></option>
+                    </select>
+                    <div class="invalid-feedback"
+                         th:if="${#fields.hasErrors('peliculas')}" th:errors="*{peliculas}"></div>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>        
+

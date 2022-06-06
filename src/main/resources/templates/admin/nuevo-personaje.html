@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es"
+    xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{master.html}">
+<head>
+<meta charset="utf-8">
+<title>Registro de Personajes</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<h2>Registro de Personaje</h2>
+		<br>
+                <div th:insert="admin/formPersonaje :: form">
+		</div>
+	</div>
+</body>
+</html>
